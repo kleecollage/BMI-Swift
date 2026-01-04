@@ -9,12 +9,39 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var heightValueLabel: UILabel!
+    @IBOutlet weak var weightValueLabel: UILabel!
+    @IBOutlet weak var heightSlider: UISlider!
+    @IBOutlet weak var weightSlider: UISlider!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func hightSliderChanged(_ sender: UISlider) {
+        // print(round((sender.value)*100)/100)
+        let heightValue = String(format: "%.2f", sender.value)
+        heightValueLabel.text = ("\(heightValue) m")
+    }
+    
+    
+    @IBAction func weightSliderChanged(_ sender: UISlider) {
+        let weightValue = String(format: "%.0f", sender.value)
+        // let weightValue = Int(sender.value)
+        weightValueLabel.text = ("\(weightValue) kg")
+    }
+    
+    @IBAction func calculatePressed(_ sender: UIButton) {
+        let heightValue = heightSlider.value
+        let weightValue = weightSlider.value
+        let bmi = weightValue / pow(heightValue, 2)
+        
+        let secondVC = SecondViewController()
+        secondVC.bmiValue = String(format: "%.1f", bmi)
+        
+        self.present(secondVC, animated: true, completion: nil)
+    }
 }
 
